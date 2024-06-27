@@ -43,7 +43,6 @@ puts "Created #{Airport.count} airports!"
   Flight.create!(
     date: rand(2.months.from_now..1.year.from_now),
     duration_in_minutes: rand(60..600),
-    number_of_passengers: rand(50..300),
     departure_airport_id: departure_airport.id,
     arrival_airport_id: arrival_airport.id
   )
@@ -59,6 +58,5 @@ Flight.order("RANDOM()").limit(5).each do |flight|
   puts "  到达: #{flight.arrival_airport.name} (#{flight.arrival_airport.code})"
   puts "  日期: #{flight.date}"
   puts "  持续时间: #{flight.duration_in_minutes} 分钟"
-  puts "  乘客数: #{flight.number_of_passengers}"
   puts ""
 end
