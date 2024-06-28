@@ -1,0 +1,8 @@
+<h1>Flights</h1>
+<ul>
+  <% @flights.each do |flight| %>
+    <li>
+    <p><%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> Date:<%= flight.date.to_fs(:long) %> Duration:<%= flight.duration_in_minutes %> min</p>
+    </li>
+  <% end %>
+</ul>
