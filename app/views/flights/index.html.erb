@@ -1,35 +1,39 @@
-<h1>Flights</h1>
+<h1>Flights Search</h1>
 
-<%= form_with url: '/flights', method: :get do |form| %>
+<%= form_with url: flights_path, method: :get do |form| %>
   <div>
-    <%= form.label :departure_airport, 'Departure airport:' %>
-    <%= form.select :departure_airport, @airport_options %>
+    <%= form.label :departure_airport_id, 'Departure airport:' %>
+    <%= form.select :departure_airport_id, @airport_options, include_blank: "Choose departure airport" %>
   </div>
 
   <div>
     <%= form.label :arrival_airport_id, 'Arrival airport:' %>
-    <%= form.select :arrival_airport, @airport_options %>
+    <%= form.select :arrival_airport_id, @airport_options, include_blank: "Choose arrival airport" %>
   </div>
 
   <div>
     <%= form.label :flight_date, 'Date:' %>
-    <%= form.date_select :flight_date %>
+    <%= form.select :flight_date, @date_options, include_blank: "Choose date" %>
   </div>
 
   <div>
     <%= form.label :number_of_passengers, 'Number of passengers:' %>
-    <%= form.select :number_of_passengers, [1, 2, 3, 4] %>
+    <%= form.select :number_of_passengers, @passenger_options %>
   </div>
 
   <div>
-    <%= form.submit "Search" %>
+    <%= form.submit "Search", name: "search" %>
   </div>
 <% end %>
 
-<ul>
-  <% @flights.find_each do |flight| %>
-    <li>
-    <p><%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> Date:<%= flight.date.to_fs(:long) %> Duration:<%= flight.duration_in_minutes %> min</p>
-    </li>
-  <% end %>
-</ul>
+<% if @flights.any? %>
+  <ul>
+    <% @flights.each do |flight| %>
+      <li>
+      <p><%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> Date:<%= flight.date.strftime('%Y-%m-%d') %> Duration:<%= flight.duration_in_minutes %> min</p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No available flights.</p>
+<% end %>
