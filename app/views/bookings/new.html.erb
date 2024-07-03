@@ -8,14 +8,13 @@
 
   <h2>Passengers</h2>
   <%= form.fields_for :passengers do |passenger_fields| %>
-    <% passenger_fields.object.new_record? %>
     <div>
       <%= passenger_fields.label :name %>
       <%= passenger_fields.text_field :name %>
     </div>
     <div>
       <%= passenger_fields.label :email %>
-      <%= passenger_fields.text_field :email %>
+      <%= passenger_fields.email_field :email %>
     </div>
   <% end %>
 
