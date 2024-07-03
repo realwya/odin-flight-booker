@@ -31,6 +31,7 @@
     <% @flights.each do |flight| %>
       <li>
       <p><%= flight.departure_airport.code %> -> <%= flight.arrival_airport.code %> Date:<%= flight.date.strftime('%Y-%m-%d') %> Duration:<%= flight.duration_in_minutes %> min</p>
+      <%= link_to "Book", new_flight_booking_path(flight_id: flight.id, number_of_passengers: params[:number_of_passengers].presence || 1)%>
       </li>
     <% end %>
   </ul>

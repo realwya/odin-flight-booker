@@ -1,0 +1,23 @@
+<h1>New Booking</h1>
+<p>Flight: <%= @flight.departure_airport.code %> -> <%= @flight.arrival_airport.code %></p>
+<p>Date: <%= @flight.date.strftime("%F %T") %></p>
+
+<%= form_with(model: @booking, url: flight_bookings_path(@flight)) do |form| %>
+  <%= form.hidden_field :flight_id, value: @flight.id %>
+  <%= form.hidden_field :booking_date, value: Time.now %>
+
+  <h2>Passengers</h2>
+  <%= form.fields_for :passengers do |passenger_fields| %>
+    <% passenger_fields.object.new_record? %>
+    <div>
+      <%= passenger_fields.label :name %>
+      <%= passenger_fields.text_field :name %>
+    </div>
+    <div>
+      <%= passenger_fields.label :email %>
+      <%= passenger_fields.text_field :email %>
+    </div>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>
